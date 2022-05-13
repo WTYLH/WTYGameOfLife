@@ -51,4 +51,29 @@ public class Utils {
         return null;
     }
 
+    public static void saveMatrixToFile(CellMatrix cellMatrix, String path) {
+        BufferedWriter writer = null;
+        try {
+            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path)));
+            writer.write(cellMatrix.getWidth() + " " + cellMatrix.getHeight() + " " + cellMatrix.getDuration() + " " + cellMatrix.getTransfromNum() + "\n");
+            for (int i = 0; i < cellMatrix.getHeight(); i++) {
+                for (int j = 0; j < cellMatrix.getWidth(); j++) {
+                    writer.write(cellMatrix.getMatrix()[i][j] + " ");
+                }
+                writer.write("\n");
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (writer != null) {
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 }
